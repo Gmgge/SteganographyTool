@@ -1,0 +1,4 @@
+/SteganographyExtraction_.*.log
+__pycache__
+.idea
+.pytest_cache
