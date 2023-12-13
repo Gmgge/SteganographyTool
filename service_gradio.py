@@ -27,7 +27,7 @@ if __name__ == "__main__":
     with gr.Blocks() as gradio_demo:
         with gr.Tab("图像隐写"):
             with gr.Row():
-                image = gr.Image(source="upload", label="图像文件", type="pil", image_mode="RGBA")
+                image = gr.Image(label="图像文件", type="pil", image_mode="RGBA")
                 message_input = gr.Textbox(label="隐写消息输入")
                 output = gr.Image(label="隐写后图像", type="pil", image_mode="RGBA")
             btn = gr.Button("隐写")
@@ -41,7 +41,7 @@ if __name__ == "__main__":
             )
         with gr.Tab("隐写提取"):
             with gr.Row():
-                image = gr.Image(source="upload", label="图像文件", type="pil", image_mode="RGBA")
+                image = gr.Image(label="图像文件", type="pil", image_mode="RGBA")
                 output = gr.Text(label="提取结果")
             btn = gr.Button("提取")
             btn.click(fn=call_extract, inputs=[image], outputs=output)
@@ -52,4 +52,4 @@ if __name__ == "__main__":
                 fn=call_extract
 
             )
-    gradio_demo.launch(show_error=True, show_tips=True, server_name="localhost", server_port=8081, share=True)
+    gradio_demo.launch(show_error=True, server_name="localhost", server_port=8081, share=True)
