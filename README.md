@@ -30,7 +30,7 @@ python service_gradio.py
 ## 1.4 python代码调用隐写消息
 ```
     # 隐写信息
-    import PIL.Image
+    import cv2
     import os
     from gstego import Steganography
     
@@ -38,16 +38,16 @@ python service_gradio.py
     stego_opt = Steganography()
     # 读取载体信息
     carrier_path = r"**.png"
-    image_file = PIL.Image.open(carrier_path)
+    image_file = cv2.imread(carrier_path)
     # 设置隐写消息
     hide_info = "我好像曾经见过你"
     # 隐写
     carrier_data = stego_opt.hide_message(image_file, hide_info)
     # 保存隐写的载体
-    carrier_data.save("output.png", optimize=True)
+    cv2.imwrite("output.png", carrier_data)
     
     # 读取载体
-    img_in = PIL.Image.open(r"output.png")
+    img_in = cv2.imread(r"output.png")
     # 提取隐写信息
     extract_info = stego_opt.extract(img_in)
     # 展示隐写消息
@@ -57,7 +57,7 @@ python service_gradio.py
 ## 1.5 python代码调用隐写文件
 ```
     # 隐写文件
-    import PIL.Image
+    import cv2
     import os
     from gstego import Steganography
     
@@ -65,16 +65,16 @@ python service_gradio.py
     stego_opt = Steganography()
     # 读取载体信息
     carrier_path = r"**.png"
-    image_file = PIL.Image.open(carrier_path)
+    image_file = cv2.imread(carrier_path)
     # 读取隐写文件
     hide_file_path = r"**.txt"
     hide_buffer = open(hide_file_path, "rb")
     # 隐写
     carrier_data = stego_opt.hide_file(image_file, hide_buffer)
-    carrier_data.save("output.png", optimize=True)
+    cv2.imwrite("output.png", carrier_data)
 
     # 读取载体
-    img_in = PIL.Image.open(r"output.png")
+    img_in = cv2.imread(r"output.png")
     extract_info = stego_opt.extract(img_in)
     # 保存提取出的文件
     with open("out." + extract_info["file"]["suffix"], "wb") as fw:
