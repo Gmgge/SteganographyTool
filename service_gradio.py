@@ -1,4 +1,5 @@
 import os
+import cv2
 import gradio as gr
 from tool.log_init import logger
 from gstego import Steganography
@@ -14,11 +15,14 @@ logger.info("隐写模块初始化成功")
 
 
 def call_hide(image_file, message_input_):
-    image_file = stego_opt.hide_message(image_file, message_input_)
-    return image_file
+    image_file = cv2.cvtColor(image_file, cv2.COLOR_RGB2BGR)  # 保持与代码调度一致，gradio读取的为RGB格式
+    hide_file = stego_opt.hide_message(image_file, message_input_)
+    hide_file = cv2.cvtColor(hide_file, cv2.COLOR_BGR2RGB)
+    return hide_file
 
 
 def call_extract(image_file):
+    image_file = cv2.cvtColor(image_file, cv2.COLOR_RGB2BGR)  # 保持与代码调度一致，gradio读取的为RGB格式
     extract_info = stego_opt.extract(image_file)
     return extract_info["message"]
 
